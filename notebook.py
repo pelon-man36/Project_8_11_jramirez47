@@ -85,7 +85,10 @@ def main():
         except ValueError:
             print("Invalid Option")
         else:
-            break
+            if user_input <= 0:
+                print("Invalid Option")
+            else:
+                break
 
     notes = Notebook(user_input)
     notes.create_entries()
