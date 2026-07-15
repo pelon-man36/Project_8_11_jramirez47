@@ -5,6 +5,10 @@ class Notebook():
     def __init__(self, entries=0):
         self.entries = entries
         self.__list = []
+        self.__choice = 1
+
+    def choice(self):
+        self.__choice = int(input())
 
     def create_entries(self):
         """Creates entries for a notebook"""
@@ -14,11 +18,6 @@ class Notebook():
             self.__list.append(text)
         return self.__list
     
-    def view_entries(self):
-        pick = int(input(f"Choose entry(#1 - {len(self.__list)}): "))
-        view = self.__list[pick - 1]
-        print(view)
-
     def add_more_entries(self):
         user_input = int(input("Enter the number of additional entries: "))
         for entry in range(1, user_input + 1):
@@ -26,6 +25,14 @@ class Notebook():
             text = input("")
             self.__list.append(text)
         return self.__list
+
+    def total_entries(self):
+        total = len(self.__list)
+        return f"Choose an entry; there are #{total} in total."
+
+    def view_entries(self):
+        print(self.__list[self.__choice - 1])
+
     
     def store_entries(self):
         path = Path("entries.json")
@@ -44,23 +51,9 @@ class Notebook():
             return True
         else:
             return False
+        
 
 def main():
-    opt_user = input("Check to see if you have 'entries.json'?(y/n) ")
-    if opt_user == "y":
-        notes = Notebook()
-        if notes.file_exist():
-            opt_user = input("A file exists! Do you want to view it?(y/n) ")
-            if opt_user == "y":
-                notes.view_entries()
-            elif opt_user == "n":
-                print("Alright then.")
-            else:
-                print("Invalid Option")
-        else:
-            print("File does not exist.")
-
-
     user_input = int(input("Enter the number of entries: "))
     notes = Notebook(user_input)
     notes.create_entries()
@@ -69,6 +62,8 @@ def main():
     notes.add_more_entries()
 
     opt_user = input("View entries?(y/n): ")
+    print(notes.total_entries())
+    notes.choice()
     notes.view_entries()
 
     opt_user = input("Store entries?(y/n): ")
