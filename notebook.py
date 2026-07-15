@@ -38,7 +38,29 @@ class Notebook():
         self.__list = json.loads(contents)
         return self.__list
 
+    def file_exist(self):
+        path = Path("entries.json")
+        if path.exists() == True:
+            return True
+        else:
+            return False
+
 def main():
+    opt_user = input("Check to see if you have 'entries.json'?(y/n) ")
+    if opt_user == "y":
+        notes = Notebook()
+        if notes.file_exist():
+            opt_user = input("A file exists! Do you want to view it?(y/n) ")
+            if opt_user == "y":
+                notes.view_entries()
+            elif opt_user == "n":
+                print("Alright then.")
+            else:
+                print("Invalid Option")
+        else:
+            print("File does not exist.")
+
+
     user_input = int(input("Enter the number of entries: "))
     notes = Notebook(user_input)
     notes.create_entries()
