@@ -57,6 +57,29 @@ class Notebook():
             return False
 
 def main():
+    notes = Notebook()
+    if notes.file_exist():
+        cont = True
+        while cont:
+            user_input = input("A file was found! Open these entries?(y/n) ")
+            if user_input == "y":
+                cont = False
+                notes.read_stored_entries()
+                notes.view_entries()
+                while True:
+                    user_input = input("View another?(y/n) ")
+                    if user_input == "y":
+                        notes.view_entries()
+                        continue
+                    elif user_input == "n":
+                        break
+                    else:
+                        print("Invalid Option")
+            elif user_input == "n":
+                cont = False
+            else:
+                print("Invalid Option")
+
     user_input = int(input("Enter the number of entries: "))
     notes = Notebook(user_input)
     notes.create_entries()
