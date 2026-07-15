@@ -32,6 +32,12 @@ class Notebook():
         contents = json.dumps(self.__list)
         path.write_text(contents)
 
+    def read_stored_entries(self):
+        path = Path("entries.json")
+        contents = path.read_text()
+        self.__list = json.loads(contents)
+        return self.__list
+
 def main():
     user_input = int(input("Enter the number of entries: "))
     notes = Notebook(user_input)
@@ -45,6 +51,9 @@ def main():
 
     opt_user = input("Store entries?(y/n): ")
     notes.store_entries()
+
+    opt_user = input("View stored entries?(y/n): ")
+    notes.read_stored_entries()
 
 
 
