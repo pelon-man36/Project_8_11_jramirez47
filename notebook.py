@@ -79,8 +79,14 @@ def main():
                 cont = False
             else:
                 print("Invalid Option")
+    while True:
+        try:
+            user_input = int(input("Enter the number of entries: "))
+        except ValueError:
+            print("Invalid Option")
+        else:
+            break
 
-    user_input = int(input("Enter the number of entries: "))
     notes = Notebook(user_input)
     notes.create_entries()
 
