@@ -1,3 +1,6 @@
+from pathlib import Path
+import json
+
 class Notebook():
     def __init__(self, entries=0):
         self.entries = entries
@@ -23,6 +26,11 @@ class Notebook():
             text = input("")
             self.__list.append(text)
         return self.__list
+    
+    def store_entries(self):
+        path = Path("entries.json")
+        contents = json.dumps(self.__list)
+        path.write_text(contents)
 
 def main():
     user_input = int(input("Enter the number of entries: "))
@@ -31,10 +39,13 @@ def main():
 
     opt_user = input("Add more entries?(y/n): ")
     notes.add_more_entries()
-    
 
     opt_user = input("View entries?(y/n): ")
     notes.view_entries()
+
+    opt_user = input("Store entries?(y/n): ")
+    notes.store_entries()
+
 
 
 main()
