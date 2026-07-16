@@ -27,12 +27,14 @@ class Notebook():
         print()
         try:
             pick = int(input(f"Choose entry(#1 - {len(self.__list)}): "))
-        except ValueError:
+            if pick <= 0:
+                raise IndexError
+            else:
+                view = self.__list[pick - 1]
+        except ValueError, IndexError:
             print()
             print("Invalid Option")
-            print()
         else:
-            view = self.__list[pick - 1]
             print()
             print(view)
 
@@ -63,9 +65,16 @@ class Notebook():
     def read_stored_entries(self):
         """Reads the stroed file"""
         path = Path("entries.json")
-        contents = path.read_text()
-        self.__list = json.loads(contents)
-        return self.__list
+        try:
+            if path.exists():
+                contents = path.read_text()
+            else:
+                raise FileNotFoundError
+        except FileNotFoundError:
+            print("File not found.")
+        else:
+            self.__list = json.loads(contents)
+            return self.__list
 
     def file_exist(self):
         """Checks to see if stored file exists"""
@@ -102,7 +111,6 @@ def main():
                     else:
                         print()
                         print("Invalid Option")
-                        print()
             elif user_input == "n":
                 cont = False
             else:
