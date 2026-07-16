@@ -31,7 +31,7 @@ class Notebook():
                 raise IndexError
             else:
                 view = self.__list[pick - 1]
-        except ValueError, IndexError:
+        except (ValueError, IndexError):
             print()
             print("Invalid Option")
         else:
