@@ -79,32 +79,58 @@ def main():
                 cont = False
             else:
                 print("Invalid Option")
-    while True:
-        try:
-            user_input = int(input("Enter the number of entries: "))
-        except ValueError:
-            print("Invalid Option")
-        else:
-            if user_input <= 0:
+    cont = True
+    while cont:
+        user_input = input("Create entries?(y/n) ")
+        if user_input == "y":
+            try:
+                user_input = int(input("Enter the number of entries: "))
+            except ValueError:
                 print("Invalid Option")
             else:
-                break
+                if user_input <= 0:
+                    print("Invalid Option")
+                else:
+                    notes = Notebook(user_input)
+                    notes.create_entries()
+                    while cont:
+                        opt_user = input("Add more entries?(y/n): ")
+                        if opt_user == "y":
+                            notes.add_more_entries()
+                        elif opt_user == "n":
+                            cont = False
+                        else:
+                            print("Invalid Option")
+                    cont = True
+                    while cont:
+                        opt_user = input("View entries?(y/n): ")
+                        if opt_user == "y":
+                            notes.view_entries()
+                        elif opt_user == "n":
+                            cont = False
+                        else:
+                            print("Invalid Option")
 
-    notes = Notebook(user_input)
-    notes.create_entries()
+                    cont = True
+                    while cont:
+                        opt_user = input("Store entries?(y/n) ")
+                        if opt_user == "y":
+                            notes.store_entries()
+                            cont = False
+                        elif opt_user == "n":
+                            cont = False
+                        else:
+                            print("Invalid Option")
 
-    opt_user = input("Add more entries?(y/n): ")
-    notes.add_more_entries()
+                    break
+        elif user_input == "n":
+            cont = False
+        else:
+            print("Invalid Option")
 
-    opt_user = input("View entries?(y/n): ")
-    notes.view_entries()
-
-    opt_user = input("Store entries?(y/n): ")
-    notes.store_entries()
-
-    opt_user = input("View stored entries?(y/n): ")
-    notes.read_stored_entries()
+    print("Goodbye.")
 
 
 
-main()
+if __name__ == "__main__":
+    main()
